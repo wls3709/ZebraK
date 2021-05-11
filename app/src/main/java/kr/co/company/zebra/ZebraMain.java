@@ -35,14 +35,13 @@ public class ZebraMain extends AppCompatActivity {
             public void onClick(View v){
                 //Intent intent = new Intent(getApplicationContext(), ZebraSend.class);
                 //startActivity(intent);
-                search(test);
+                //search(test);
             }
         });
 
         ImageButton camerabtn = (ImageButton)findViewById(R.id.camera);
         camerabtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                //Toast.makeText(getApplicationContext(), "카메라", Toast.LENGTH_LONG).show();
                 startBarcodeReader(v);
             }
         });
@@ -52,27 +51,28 @@ public class ZebraMain extends AppCompatActivity {
         new IntentIntegrator(this).initiateScan();
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        TextView test = (TextView) findViewById(R.id.test);
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(result != null) {
             if(result.getContents() == null) {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode="+result.getContents()));
-                startActivity(intent);
+                String content = result.getContents();
+                search(test, content);
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
-    public void search(TextView test){
+    public void search(TextView test, String content){
         new Thread(){
             public void run() {
                 Document doc = null;
                 final StringBuilder builder = new StringBuilder();
                 try {
-                    doc = Jsoup.connect("http://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9788967994815").get();
+                    doc = Jsoup.connect("http://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode="+content).get();
                     //String title = doc.title();
                     String title = doc.select("h1.title strong").text();
                     String authorcompany = doc.select("span.name a").text();
@@ -85,11 +85,15 @@ public class ZebraMain extends AppCompatActivity {
                     }
                     company = tmp[tmp.length-1];
 
-
-
                     builder.append(title).append("\n");
                     builder.append(author).append("\n");
                     builder.append(company).append("\n");
+
+                    Intent intent = new Intent(getApplicationContext(), ZebraSend.class);
+                    intent.putExtra("title", title);
+                    intent.putExtra("author", author);
+                    intent.putExtra("company", company);
+                    startActivity(intent);
 
                 } catch (IOException e) {
                     e.printStackTrace();

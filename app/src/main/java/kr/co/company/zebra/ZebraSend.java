@@ -3,7 +3,9 @@ package kr.co.company.zebra;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,7 +27,19 @@ public class ZebraSend extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.zebrasend);
-        Log.i(this.getClass().getName(), "시작");
+
+        Intent intent = getIntent();
+        String title = intent.getStringExtra("title");
+        String author = intent.getStringExtra("author");
+        String company = intent.getStringExtra("company");
+
+        TextView test2 = (TextView) findViewById(R.id.test2);
+        final StringBuilder builder = new StringBuilder();
+        builder.append(title).append("\n");
+        builder.append(author).append("\n");
+        builder.append(company).append("\n");
+
+        test2.setText(builder.toString());
 
         Button send = (Button)findViewById(R.id.send);
         send.setOnClickListener(new View.OnClickListener() {
@@ -37,7 +51,6 @@ public class ZebraSend extends AppCompatActivity {
                     result = task.execute("rain483","1234").get();
                     Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
                     Log.i("리턴 값",result);
-                    Toast.makeText(getApplicationContext(), "여기3", Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "실패", Toast.LENGTH_LONG).show();
                 }
