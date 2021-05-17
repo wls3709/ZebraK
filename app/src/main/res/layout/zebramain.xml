@@ -21,15 +21,6 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center">
-        <Button
-            android:id="@+id/sendpage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginRight="10dp"
-            android:background="@color/white"
-            android:text="보내기"
-            android:textColor="@color/black" />
 
     </LinearLayout>
 
@@ -38,15 +29,6 @@
         android:layout_height="0dp"
         android:layout_weight="6.5"
         android:gravity="center">
-        <TextView
-            android:id="@+id/test"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="TEST"
-            android:textColor="@color/white"
-            android:textSize="8pt">
-        </TextView>
     </LinearLayout>
 
     <LinearLayout

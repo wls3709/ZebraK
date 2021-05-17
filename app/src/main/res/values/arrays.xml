@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="star">
+        <item>1점</item>
+        <item>2점</item>
+        <item>3점</item>
+        <item>4점</item>
+        <item>5점</item>
+    </string-array>
+
+</resources>

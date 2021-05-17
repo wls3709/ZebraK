@@ -14,29 +14,23 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:gravity="center"></LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
         android:gravity="center">
-        <Button
-            android:id="@+id/send"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginRight="10dp"
-            android:background="@color/white"
-            android:text="보내기"
-            android:textColor="@color/black" />
-
+            android:text="도서 등록"
+            android:textColor="@color/white"
+            android:textSize="13pt">
+        </TextView>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6.5"
+        android:layout_weight="8"
+        android:orientation="vertical"
+        android:background="@color/white"
         android:gravity="center">
         <TextView
             android:id="@+id/test2"
@@ -44,17 +38,67 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="TEST"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="8pt">
         </TextView>
+        <CheckBox
+            android:id="@+id/check_finished"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="완독 도서">
+        </CheckBox>
+
+        <LinearLayout
+            android:id="@+id/layoutcheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:visibility="invisible"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="별점"
+                android:textColor="@color/black"
+                android:textSize="7pt">
+            </TextView>
+            <Spinner
+                android:id="@+id/spinner_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </Spinner>
+
+        </LinearLayout>
+
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.5"
+        android:layout_weight="1"
+        android:background="@color/white"
         android:gravity="center">
+        <Button
+            android:id="@+id/send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:backgroundTint="@color/black"
+            android:text="등록"
+            android:textColor="@color/white" />
+        <Button
+            android:id="@+id/sendcancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:backgroundTint="@color/black"
+            android:text="취소"
+            android:textColor="@color/white" />
     </LinearLayout>
-
 </LinearLayout>
-

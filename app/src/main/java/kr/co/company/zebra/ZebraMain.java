@@ -29,16 +29,6 @@ public class ZebraMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.zebramain);
 
-        TextView test = (TextView) findViewById(R.id.test);
-        Button sendBtn = (Button)findViewById(R.id.sendpage);
-        sendBtn.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                //Intent intent = new Intent(getApplicationContext(), ZebraSend.class);
-                //startActivity(intent);
-                //search(test);
-            }
-        });
-
         ImageButton camerabtn = (ImageButton)findViewById(R.id.camera);
         camerabtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -51,7 +41,6 @@ public class ZebraMain extends AppCompatActivity {
         new IntentIntegrator(this).initiateScan();
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        TextView test = (TextView) findViewById(R.id.test);
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(result != null) {
             if(result.getContents() == null) {
@@ -59,14 +48,14 @@ public class ZebraMain extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
                 String content = result.getContents();
-                search(test, content);
+                search(content);
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
-    public void search(TextView test, String content){
+    public void search(String content){
         new Thread(){
             public void run() {
                 Document doc = null;
@@ -90,6 +79,7 @@ public class ZebraMain extends AppCompatActivity {
                     builder.append(company).append("\n");
 
                     Intent intent = new Intent(getApplicationContext(), ZebraSend.class);
+                    intent.putExtra("ISBN", content);
                     intent.putExtra("title", title);
                     intent.putExtra("author", author);
                     intent.putExtra("company", company);
@@ -101,8 +91,6 @@ public class ZebraMain extends AppCompatActivity {
 
                 runOnUiThread(()->{
 
-
-                    test.setText(builder.toString());
                 });
             }
         }.start();
