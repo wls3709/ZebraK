@@ -55,7 +55,7 @@ public class ZebraSend extends AppCompatActivity {
 
         Button send = (Button)findViewById(R.id.send);
         send.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
+            public void onClick(View view) { // -------------------------------------------------------------------------------------------------------------- 전송
                 Log.i(this.getClass().getName(), "시작");
                 CheckBox finishedChck = (CheckBox)findViewById(R.id.check_finished);
                 if(finishedChck.isChecked()){
@@ -87,7 +87,7 @@ public class ZebraSend extends AppCompatActivity {
         CheckBox finishedChck = (CheckBox)findViewById(R.id.check_finished);
         finishedChck.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { // --------------------------------------------------------------------------------------------------------------- 체크박스
                 if(finishedChck.isChecked()){
                     LinearLayout thislayout = (LinearLayout)findViewById(R.id.layoutcheck);
                     thislayout.setVisibility(View.VISIBLE);
@@ -116,7 +116,7 @@ public class ZebraSend extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             try {
                 String str;
-                URL url = new URL("http://:8080/AndroidProject/servertest.jsp");
+                URL url = new URL("http://10.0.2.2:8080/AndroidProject/servertest.jsp");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestMethod("POST");
