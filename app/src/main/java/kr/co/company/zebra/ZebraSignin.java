@@ -33,8 +33,6 @@ public class ZebraSignin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.zebrasignin);
 
-
-
         Button checkBtn = (Button)findViewById(R.id.rdctioncheck);
         checkBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){ // --------------------------------------------------------------------------------------------------------- 중복 확인
@@ -97,7 +95,7 @@ public class ZebraSignin extends AppCompatActivity {
                         ZebraSignin.CustomTask task = new ZebraSignin.CustomTask();
                         result = task.execute("sign", id, pw).get();
                         result = result.trim();
-                        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "회원가입 되었습니다", Toast.LENGTH_LONG).show();
                         Log.i("리턴 값",result);
                         Intent intent = new Intent(getApplicationContext(), ZebraStart.class);
                         startActivity(intent);
