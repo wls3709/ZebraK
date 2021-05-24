@@ -35,7 +35,7 @@ public class ZebraSend extends AppCompatActivity {
         setContentView(R.layout.zebrasend);
 
         Intent intent = getIntent();
-        String user = "user";
+        String user = intent.getStringExtra("user");
         String ISBN = intent.getStringExtra("ISBN");
         String title = intent.getStringExtra("title");
         String author = intent.getStringExtra("author");
@@ -65,10 +65,11 @@ public class ZebraSend extends AppCompatActivity {
                 try {
                     String result;
                     CustomTask task = new CustomTask();
-                    result = task.execute(user, ISBN, title, author, company, checkedstring, spinner).get();
-                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+                    result = task.execute("book", user, ISBN, title, author, company, checkedstring, spinner).get();
+                    //Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
                     Log.i("리턴 값",result);
                     Intent intent = new Intent(getApplicationContext(), ZebraMain.class);
+                    intent.putExtra("user", user);
                     startActivity(intent);
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "실패", Toast.LENGTH_LONG).show();
@@ -80,6 +81,7 @@ public class ZebraSend extends AppCompatActivity {
         sendcancelBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Intent intent = new Intent(getApplicationContext(), ZebraMain.class);
+                //intent.putExtra("user", user);
                 startActivity(intent);
             }
         });
@@ -121,7 +123,7 @@ public class ZebraSend extends AppCompatActivity {
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestMethod("POST");
                 OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
-                sendMsg = "user="+strings[0]+"&ISBN="+strings[1]+"&title="+strings[2]+"&author="+strings[3]+"&company="+strings[4]+"&finished="+strings[5]+"&spinner="+strings[6];
+                sendMsg = "flag="+strings[0]+"&user="+strings[1]+"&ISBN="+strings[2]+"&title="+strings[3]+"&author="+strings[4]+"&company="+strings[5]+"&finished="+strings[6]+"&spinner="+strings[7];
                 osw.write(sendMsg);
                 osw.flush();
                 if(conn.getResponseCode() == conn.HTTP_OK) {

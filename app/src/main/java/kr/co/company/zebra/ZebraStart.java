@@ -57,7 +57,9 @@ public class ZebraStart extends AppCompatActivity {
                         result = task.execute("login", id, password).get();
                         result = result.trim();
                         if(result.equals("login")){
-                            Toast.makeText(getApplicationContext(), "로그인", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(getApplicationContext(), ZebraMain.class);
+                            intent.putExtra("user", id);
+                            startActivity(intent);
                         }
                         else if(result.equals("id")){
                             Toast.makeText(getApplicationContext(), "ID를 확인해주세요", Toast.LENGTH_LONG).show();
@@ -73,8 +75,9 @@ public class ZebraStart extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "실패", Toast.LENGTH_LONG).show();
                     }
 
-                    //Intent intent = new Intent(getApplicationContext(), ZebraMain.class);
-                    //startActivity(intent);
+                    Intent intent = new Intent(getApplicationContext(), ZebraMain.class);
+                    intent.putExtra("user", id);
+                    startActivity(intent);
                 }
             }
         });
