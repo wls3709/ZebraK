@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,7 +56,7 @@ public class ZebraMain extends AppCompatActivity {
         Intent intent = getIntent();
         userstr = intent.getStringExtra("user");
         TextView usertxt = (TextView) findViewById(R.id.user);
-        usertxt.setText(userstr);
+        usertxt.setText(userstr+"의 서재");
 
         String result="";
 
@@ -69,9 +71,13 @@ public class ZebraMain extends AppCompatActivity {
         ListView list;
         list=(ListView)findViewById(R.id.list);
         list.setAdapter(MyAdapter);
+        list.setDivider(new ColorDrawable(0xffffffff));
+        list.setDividerHeight(3);
 
         try {
             sendflag = 0;
+
+
 
             ZebraMain.CustomTask task = new ZebraMain.CustomTask();
             result = task.execute("browse", userstr).get();
@@ -83,14 +89,24 @@ public class ZebraMain extends AppCompatActivity {
                 String tmptitle = splitText2[0];
                 String tmpauthor = splitText2[1];
                 String tmpcompany = splitText2[2];
+                String tstar = "";
+                int tstarint = Integer.parseInt(splitText2[3]);
+                if(tstarint == 0){
+                    tstar = "읽지 않음";
+                }
+                else{
+                    for(int j = 0; j<tstarint; j++){
+                        tstar += "★ ";
+                    }
+                }
 
-                arItem.add(new MyItem(tmptitle, tmpauthor, tmpcompany));
+                arItem.add(new MyItem(tmptitle, tmpauthor, tmpcompany, tstar));
             }
 
             //Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
             Log.i("리턴 값",result);
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "실패", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "도서를 등록해주세요", Toast.LENGTH_LONG).show();
         }
 
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -104,9 +120,11 @@ public class ZebraMain extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         //String tmpitem = Integer.toString(position);
                         //Toast.makeText(getApplicationContext(), tmpitem, Toast.LENGTH_LONG).show();
-                        //String tmpname = arItem.get(3).name;
-                        Toast.makeText(getApplicationContext(), "클릭", Toast.LENGTH_LONG).show();
-                        //deletedbcontent(tmpname);
+                        //String tmpname = arItem.get(3).atitle;
+
+                        //String tmpname = arItem.;
+                        //Toast.makeText(getApplicationContext(), tmpname, Toast.LENGTH_LONG).show();
+                        deletedbcontent(position);
                     }
                 });
 
@@ -126,15 +144,17 @@ public class ZebraMain extends AppCompatActivity {
         });
     }
 
-    public void deletedbcontent(String item){
+    public void deletedbcontent(int item){
         try {
             sendflag = 1;
+            String tmpname = arItem.get(item).atitle;
+
             ZebraMain.CustomTask task = new ZebraMain.CustomTask();
-            String result = task.execute("delete", userstr, item).get();
-            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
-            //Intent intent = new Intent(getApplicationContext(), ZebraMain.class);
-            //intent.putExtra("user", userstr);
-            //startActivity(intent);
+            String result = task.execute("delete", userstr, tmpname).get();
+            //Toast.makeText(getApplicationContext(), tmpname, Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getApplicationContext(), ZebraMain.class);
+            intent.putExtra("user", userstr);
+            startActivity(intent);
             Log.i("리턴 값",result);
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "실패", Toast.LENGTH_LONG).show();
@@ -250,15 +270,17 @@ public class ZebraMain extends AppCompatActivity {
 
 //리스트 뷰에 출력할 항목
 class MyItem {
-    MyItem(String title, String author, String company) {
+    MyItem(String title, String author, String company, String star) {
 
         atitle = title;
         aauthor = author;
         acompany = company;
+        astar = star;
     }
     String atitle;
     String aauthor;
     String acompany;
+    String astar;
 }
 
 //어댑터 클래스
@@ -301,6 +323,9 @@ class MyListAdapter extends BaseAdapter {
 
         TextView company = (TextView) convertView.findViewById(R.id.bookcompany);
         company.setText(arSrc.get(position).acompany);
+
+        TextView star = (TextView) convertView.findViewById(R.id.bookstar);
+        star.setText(arSrc.get(position).astar);
 
         return convertView;
     }
