@@ -1,21 +1,20 @@
 package kr.co.company.zebra;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
-import android.os.AsyncTask;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,38 +24,32 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class ZebraSend extends AppCompatActivity {
+public class ZebraPen extends AppCompatActivity {
     String checkedstring = "false";
     String spinner = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.zebrasend);
+        setContentView(R.layout.zebrapensend);
 
         Intent intent = getIntent();
         String user = intent.getStringExtra("user");
-        String ISBN = intent.getStringExtra("ISBN");
-        String title = intent.getStringExtra("title");
-        String author = intent.getStringExtra("author");
-        String company = intent.getStringExtra("company");
 
-        String titlestring = "제목 : " + title;
-        String authorstring = "저자 : " + author;
-        String companystring = "출판사 : " + company;
-
-        TextView test2 = (TextView) findViewById(R.id.test2);
-        final StringBuilder builder = new StringBuilder();
-        builder.append(titlestring).append("\n\n");
-        builder.append(authorstring).append("\n\n");
-        builder.append(companystring).append("\n");
-
-        test2.setText(builder.toString());
 
         Button send = (Button)findViewById(R.id.send);
         send.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) { // -------------------------------------------------------------------------------------------------------------- 전송
                 Log.i(this.getClass().getName(), "시작");
+                EditText titletext = (EditText)findViewById(R.id.edtbookname);
+                String title = titletext.getText().toString();
+
+                EditText authortext = (EditText)findViewById(R.id.edtauthorname);
+                String author = authortext.getText().toString();
+
+                EditText companytext = (EditText)findViewById(R.id.edtcompanyname);
+                String company = companytext.getText().toString();
+
                 CheckBox finishedChck = (CheckBox)findViewById(R.id.check_finished);
                 if(finishedChck.isChecked()){
                     Spinner starSpinner = (Spinner)findViewById(R.id.spinner_star);
@@ -65,7 +58,7 @@ public class ZebraSend extends AppCompatActivity {
                 try {
                     String result;
                     CustomTask task = new CustomTask();
-                    result = task.execute("book", user, ISBN, title, author, company, checkedstring, spinner).get();
+                    result = task.execute("book", user, " ", title, author, company, checkedstring, spinner).get();
                     //Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
                     Log.i("리턴 값",result);
                     Intent intent = new Intent(getApplicationContext(), ZebraMain.class);

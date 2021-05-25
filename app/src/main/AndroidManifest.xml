@@ -26,6 +26,7 @@
         <activity android:name=".ZebraMain"/>
         <activity android:name=".ZebraSignin"/>
         <activity android:name=".ZebraSend"/>
+        <activity android:name=".ZebraPen"/>
 
     </application>
 

@@ -45,14 +45,24 @@
     android:layout_weight="1.5"
     android:gravity="center">
 
-    <ImageButton
-        android:id="@+id/camera"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/camera"
-        android:visibility="visible"
-        android:scaleType="fitCenter"
-        android:background="@android:color/transparent"/>
+        <ImageButton
+            android:id="@+id/pen"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/pen"
+            android:visibility="visible"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"/>
+
+
+        <ImageButton
+            android:id="@+id/camera"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/camera"
+            android:visibility="visible"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"/>
     </LinearLayout>
 
 </LinearLayout>

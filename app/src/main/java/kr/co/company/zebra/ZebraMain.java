@@ -136,6 +136,15 @@ public class ZebraMain extends AppCompatActivity {
             }
         });
 
+        ImageButton penbtn = (ImageButton)findViewById(R.id.pen);
+        penbtn.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(getApplicationContext(), ZebraPen.class);
+                intent.putExtra("user", userstr);
+                startActivity(intent);
+            }
+        });
+
         ImageButton camerabtn = (ImageButton)findViewById(R.id.camera);
         camerabtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
