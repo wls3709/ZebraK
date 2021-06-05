@@ -62,9 +62,6 @@ public class ZebraMain extends AppCompatActivity {
 
         arItem = new ArrayList<MyItem>();
         MyItem mi;
-        //mi = new MyItem("삼성 노트북");arItem.add(mi);
-        //mi = new MyItem("LG 세탁기");arItem.add(mi);
-        //mi = new MyItem("대우 마티즈");arItem.add(mi);
 
         MyListAdapter MyAdapter = new MyListAdapter(this, R.layout.zebra_context, arItem);
 
@@ -118,12 +115,6 @@ public class ZebraMain extends AppCompatActivity {
                 bld.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //String tmpitem = Integer.toString(position);
-                        //Toast.makeText(getApplicationContext(), tmpitem, Toast.LENGTH_LONG).show();
-                        //String tmpname = arItem.get(3).atitle;
-
-                        //String tmpname = arItem.;
-                        //Toast.makeText(getApplicationContext(), tmpname, Toast.LENGTH_LONG).show();
                         deletedbcontent(position);
                     }
                 });
